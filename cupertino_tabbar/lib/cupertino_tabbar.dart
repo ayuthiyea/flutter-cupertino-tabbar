@@ -70,6 +70,9 @@ class CupertinoTabBar extends StatefulWidget {
   ///The gap that is to be shown on the top and bottom sides of this [CupertinoTabBar] if [allowScrollable] is set to true.
   final double outerVerticalPadding;
 
+    ///The gradient of the moving selection bar.
+  final Gradient foregroundGradient;
+
   const CupertinoTabBar(
     this._backgroundColor,
     this._foregroundColor,
@@ -91,6 +94,7 @@ class CupertinoTabBar extends StatefulWidget {
     this.animateUntilScrolled: true,
     this.outerHorizontalPadding: 10.0,
     this.outerVerticalPadding: 0.0,
+    this.foregroundGradient,
   }) : super(key: key);
 
   @override
@@ -359,6 +363,7 @@ class _CupertinoTabBarState extends State<CupertinoTabBar> with SingleTickerProv
             _indicatorHeight,
             _indicatorWidth,
             widget._foregroundColor,
+            widget.foregroundGradient,
             widget.borderRadius,
             widget.useShadow,
           ),
@@ -487,6 +492,7 @@ class _Indicator extends StatelessWidget {
   final double _height;
   final double _width;
   final Color _color;
+  final Gradient _gradient;
   final BorderRadius _borderRadius;
   final bool _useShadow;
 
@@ -497,6 +503,7 @@ class _Indicator extends StatelessWidget {
     this._height,
     this._width,
     this._color,
+    this._gradient,
     this._borderRadius,
     this._useShadow,
   );
@@ -513,7 +520,8 @@ class _Indicator extends StatelessWidget {
           height: _height,
           width: _width,
           decoration: BoxDecoration(
-            color: _color,
+            color: _gradient != null ? null : _color,
+            gradient: _gradient,
             borderRadius: _borderRadius,
             boxShadow: _useShadow
                 ? [
